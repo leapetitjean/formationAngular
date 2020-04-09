@@ -15,12 +15,13 @@ import { Comment } from '../shared/comment';
 export class DishDetailComponent implements OnInit {
 
   dish: Dish;
+  errMess: string;
   dishIds: string[];
   prev: string;
   next: string;
   commentForm: FormGroup;
   comment: Comment;
-  @ViewChild('fform') commentFormDirective;
+  @ViewChild('cform') commentFormDirective;
 
   formErrors = {
     'comment': '',
@@ -53,7 +54,9 @@ export class DishDetailComponent implements OnInit {
       .subscribe((dish) => { 
         this.dish = dish; 
         this.setPrevNext(dish.id);
-      });
+      },
+        errmess => this.errMess = <any>errmess
+      );
   }
 
   setPrevNext(dishId: string) {
