@@ -24,6 +24,8 @@
     "@angular/router": "~9.1.0",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
+    "http": "0.0.1-security",
+    "http-module": "0.0.5",
     "rxjs": "~6.5.5",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
