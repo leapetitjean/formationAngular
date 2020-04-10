@@ -37,10 +37,8 @@
   </div>
 
   <div fxFlex fxFlexOffset="20px" class="form-size">
-    <h3>Send us your Feedback</h3>
-    <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
-    
-    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+    <h3>Send us your Feedback</h3>  
+    <form novalidate [formGroup]="feedbackForm" (ngSubmit)="onSubmit()" [hidden]="display || postFeedback || errMess">
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -74,11 +72,14 @@
           <mat-slide-toggle formControlName="agree">May we contact you ?</mat-slide-toggle>
         </td>
         <td>
-          <mat-select formControlName="contacttype" placeholder="How?">
-            <mat-option *ngFor="let ctype of contactType" [value]="ctype">
-              {{ ctype }}
-            </mat-option>
+          <mat-form-field>
+            <mat-label>How?</mat-label>
+            <mat-select formControlName="contacttype">
+              <mat-option *ngFor="let ctype of contactType" [value]="ctype">
+                {{ ctype }}
+              </mat-option>
           </mat-select>
+        </mat-form-field>
         </td>
       </table>
       <p>
@@ -90,5 +91,26 @@
       <button type="submit" mat-button class="background-primary text-floral-white"
       [disabled]="feedbackForm.invalid">Submit</button>
     </form>
+
+  </div>
+  <div fxFlex [hidden]="!display || errMess">
+    <h4>Submitting Form</h4>
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <div *ngIf="errMess">
+    <h2>Error</h2>
+    <h4>{{ errMess }}</h4>
+  </div>
+
+  <div *ngIf="postFeedback" [@expand]>
+    <h3>Your Submission</h3>
+    <h4>First Name: {{ postFeedback.firstname }}</h4> 
+    <h4>Last Name: {{ postFeedback.lastname }}</h4>
+    <h4>Tel. Number: {{ postFeedback.telnum }}</h4>
+    <h4>Email: {{ postFeedback.email }}</h4>
+    <h4>Contact You?: {{ postFeedback.agree }}</h4>
+    <h4>How?: {{ postFeedback.contacttype }}</h4>
+    <h4>Feedback: {{ postFeedback.message }}</h4>
   </div>
 </div>
